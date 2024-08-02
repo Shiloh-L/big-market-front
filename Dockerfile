@@ -1,17 +1,12 @@
+# 这种方式需要先在本地执行yarn install 或者 npm install，安装依赖后，再进行镜像打包
+
 FROM node:18-alpine AS base
-
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-
-RUN yarn config set registry 'https://registry.npmmirror.com/'
-RUN yarn install
 
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+# 复制本地的 node_modules 目录到镜像中
+COPY node_modules ./node_modules
 COPY . .
 
 RUN yarn build
