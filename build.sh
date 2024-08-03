@@ -1,1 +1,1 @@
-docker build -t shiloh/big-market-front-app:1.1 .
+docker build -t shiloh/big-market-front-app:1.0 .
