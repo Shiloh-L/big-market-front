@@ -13,17 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build project
-        run: yarn build
-
       - name: Log in to Alibaba Cloud Container Registry
         run: |
           echo "${{ secrets.ACR_USERNAME }}" | docker login --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }} ${{ secrets.ACR_REGISTRY }}
