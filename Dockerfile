@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
-RUN yarn config set registry 'https://registry.npmmirror.com/'
+# RUN yarn config set registry 'https://registry.npmmirror.com/'
 RUN yarn install
 
 FROM base AS builder
