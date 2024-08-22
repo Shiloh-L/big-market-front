@@ -10,7 +10,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
-             style={{backgroundImage: "url('/background.svg')", backgroundColor: "#e7305e;"}}>
+             style={{backgroundImage: "url('/background.svg')", backgroundColor: "#e7305e"}}>
             {/* 头部文案 */}
             <header className="text-7xl font-bold text-center text-gray-800 my-8" style={{color: "white"}}>
                 大营销平台 - 抽奖展示
