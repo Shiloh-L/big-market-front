@@ -1,15 +1,17 @@
 "use client"
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState, useContext} from 'react'
 // @ts-ignore
 import {LuckyGrid} from '@lucky-canvas/react'
 import {draw, queryRaffleAwardList} from "@/apis";
+import {RaffleAwardVO} from "@/types/RaffleAwardVO";
 
 /**
  * 大转盘文档：https://100px.net/docs/grid.html
  * @constructor
  */
-export function LuckyGridPage() {
+// @ts-ignore
+export function LuckyGridPage({handleRefresh}) {
     const [prizes, setPrizes] = useState([{}])
     const myLucky = useRef()
 
@@ -19,7 +21,7 @@ export function LuckyGridPage() {
         const userId = String(queryParams.get('userId'));
         const activityId = Number(queryParams.get('activityId'));
         const result = await queryRaffleAwardList(userId, activityId);
-        const {code, info, data} = await result.json();
+        const {code, info, data}: { code: string; info: string; data: RaffleAwardVO[] } = await result.json();
         if (code != "0000") {
             window.alert("获取抽奖奖品列表失败 code:" + code + " info:" + info)
             return;
@@ -107,6 +109,7 @@ export function LuckyGridPage() {
             },
         ]
 
+
         // 设置奖品数据
         setPrizes(prizes)
 
@@ -123,6 +126,8 @@ export function LuckyGridPage() {
             window.alert("随机抽奖失败 code:" + code + " info:" + info)
             return;
         }
+
+        handleRefresh()
 
         // 为了方便测试，mock 的接口直接返回 awardIndex 也就是奖品列表中第几个奖品。
         return data.awardIndex - 1;
